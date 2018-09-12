@@ -11,37 +11,34 @@
             <div class="w3-display-container w3-animate-botom">
                 <img src = "{% static 'iou.jpeg' %}" class = 'w3-image w3-round w3-animate-bottom'>
                 <div class='w3-container w3-display-bottom'>
-                  <div class="w3-panel w3-leftbar w3-grey w3-large w3-serif w3-animate-bottom">
-                        <p> If I'm there, you owe me. If I'm dead, if I'm dead, If I'm dead, you owe me. </p>
+                  <div class="w3-panel w3-leftbar w3-grey w3-large w3-serif w3-animate-bottom w3-wide w3-text-white" style="text-shadow:1px 1px 0 #444">
+                        <p> "If I'm there, you owe me. If I'm dead, if I'm dead, If I'm dead, you owe me." </p>
                   </div>
                 </div>
             </div>
             <form method = 'POST' class ='w3-card-8 w3-margin'>
                 {% csrf_token %}
-                <div class='w3-cards w3-teal w3-padding-48 w3-animate-bottom'>
+                <div class='w3-card-3 w3-panel w3-leftbar w3-teal w3-padding-48 w3-animate-bottom w3-wide'>
+                {% if user.is_authenticated %}  
                     {% for field in form %}
                         {% if field != form.errors %}
-                    <div class ='w3-half'>
-                       {{ field.label_tag }}
-                    </div>
-                    <div class ='w3-half'>
-                       {{field}}
-                    </div>
+                           {{ field.label_tag }}
+                           {{field}}
+                           <br>
                             <br>
                         {%endif %}
                         
                     {% endfor %}
                     <br>
-                    {% if user.is_authenticated %}  
-                    <input type='submit' value='u o me'>
+                    <input  class= 'w3-btn w3-round w3-grey 'type='submit' value='u o me'>
                     {% else %}
-                    <p> Login to add any Dues</p>
-                    {% endif %}
+                    <p> <button class='w3-btn w3-green'><a href = {% url 'login' %}?next={{request.path}}  >Login</button></a> to add any Dues</p>
+                {% endif %}
                     
                 </div>
             </form>
         {% for debt in debts %}
-        <div class='w3-card-4 w3-grey w3-padding-16 w3-margin w3-animate-bottom'>
+        <div class='w3-leftbar w3-card-4 w3-grey w3-padding-16 w3-margin w3-animate-bottom  w3-small ' >
             <i class='fa fa-angle-double-right w3-large'> {{debt}}  </i>
 
         </div>
