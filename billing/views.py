@@ -11,7 +11,7 @@ def home(request):
             'debts':debt,
             }
     if request.method=='POST':
-        d = Debt.objects.get(from_user=request.POST['from_user'] , to_user=request.POST['to_user'])
+        d = Debt.objects.get_or_create(from_user=request.POST['from_user'] , to_user=request.POST['to_user'])
         d.amount+=int(request.POST['amount'])
         d.save()
     return render(request,'debt.html', context)
