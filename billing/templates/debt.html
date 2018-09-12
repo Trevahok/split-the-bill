@@ -1,22 +1,51 @@
 <html>
     <head>
         <title>Split It - All your accounts at one place</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
-        <form method = 'POST'>
-            {% csrf_token %}
-
-            {% for field in form %}
-                {% if field != form.errors %}
-                    {{ field }}
-                {%endif %}
-            {% endfor %}
-            <input type='submit' value='u o me'>
-            
-        </form>
-
+{% load static %}
+        <div class='w3-container w3-padding-64 w3-black w3-center w3-card-2'>
+            <div class="w3-display-container w3-animate-botom">
+                <img src = "{% static 'iou.jpeg' %}" class = 'w3-image w3-round w3-animate-bottom'>
+                <div class='w3-container w3-display-bottom'>
+                  <div class="w3-panel w3-leftbar w3-grey w3-large w3-serif w3-animate-bottom">
+                        <p> If I'm there, you owe me. If I'm dead, if I'm dead, If I'm dead, you owe me. </p>
+                  </div>
+                </div>
+            </div>
+            <form method = 'POST' class ='w3-card-8 w3-margin'>
+                {% csrf_token %}
+                <div class='w3-cards w3-teal w3-padding-48 w3-animate-bottom'>
+                    {% for field in form %}
+                        {% if field != form.errors %}
+                    <div class ='w3-half'>
+                       {{ field.label_tag }}
+                    </div>
+                    <div class ='w3-half'>
+                       {{field}}
+                    </div>
+                            <br>
+                        {%endif %}
+                        
+                    {% endfor %}
+                    <br>
+                    {% if user.is_authenticated %}  
+                    <input type='submit' value='u o me'>
+                    {% else %}
+                    <p> Login to add any Dues</p>
+                    {% endif %}
+                    
+                </div>
+            </form>
         {% for debt in debts %}
-            {{debt}}
+        <div class='w3-card-4 w3-grey w3-padding-16 w3-margin w3-animate-bottom'>
+            <i class='fa fa-angle-double-right w3-large'> {{debt}}  </i>
+
+        </div>
         {% endfor %}
+        </div>
     </body>
 </html>
